@@ -186,8 +186,8 @@ section h2 {
   font-size: 3em;
 }
 section.success {
-  background: #18BC9C;
-  color: white;
+  background: white;
+  color: #18BC9C;
 }
 @media (max-width: 767px) {
   section {
@@ -259,7 +259,7 @@ section.success {
   padding-left: 0;
   border: none;
   border-radius: 0;
-  font-size: 1.5em;
+  font-size: 1.3em;
   background: none;
   box-shadow: none !important;
   resize: none;
@@ -370,9 +370,9 @@ fieldset[disabled] .btn-primary.active {
   background-color: white;
 }
 .btn-success {
-  color: white;
-  background-color: #18BC9C;
-  border-color: #18BC9C;
+  color: #fff;
+  background-color: #128f76;
+  border-color: #c3c3c3;
   font-weight: 700;
 }
 .btn-success:hover,
@@ -380,7 +380,7 @@ fieldset[disabled] .btn-primary.active {
 .btn-success:active,
 .btn-success.active,
 .open .dropdown-toggle.btn-success {
-  color: white;
+  color: #c3c3c3;
   background-color: #128f76;
   border-color: #11866f;
 }
@@ -502,4 +502,44 @@ fieldset[disabled] .btn-success.active {
 .portfolio-modal .modal-backdrop {
   opacity: 0;
   display: none;
+}
+/***************** Custom **************************/
+.app-forms{
+  margin-top: 25px;
+}
+
+.form-control{
+  height: 40px;
+}
+
+/*---------------------------------------------------------------------------
+    bookmark list styling
+*/
+
+ul.bookmarks {
+    list-style: none none;
+    padding-left: 0;
+}
+
+ul.bookmarks li {
+    padding-bottom: .5em;
+    border-top: 1px solid #7EA6BF;
+    padding: 1em 0;
+}
+
+
+/* --------------------------------------------------------------------------
+   Flashes styling
+*/
+
+.flashes ul{
+    margin: 0 0;
+    background: #FFD6A3;
+    color: #000;
+    list-style-type: none;
+    list-style: none;
+}
+
+article.flashes{
+    margin-bottom: 1em;
 }
