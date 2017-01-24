@@ -5,22 +5,73 @@
 {% endblock %}
 
 {% block content %}
+	<section id="contact">
 
-	<div class="container">
+
+        <div class="row">
+            <article class="flashes">
+                {% with messages = get_flashed_messages() %}
+                    {% if messages %}
+                        <ul>
+                            {% for message in messages %}
+                                <li>{{message}}</li>
+                            {% endfor %}
+                        </ul>
+                    {% endif %}
+                {% endwith %}
+            </article>
+        </div>
+
 		<div class="row">
-			<section>
-				<h2>Categories added by {{ user.username }}</h2>
-				<ul>
-					{% for categ in user.categories %}
-						<li>
-							<a href="">{{ categ.category_name }}</a>
-							<span class="timestamp"> Added at {{ categ.date }}</span>
-						</li>
-					{% else %}
-						<li>{{ user.username }} has not added any task categories</li>
-					{% endfor %}
-				</ul>
-			</section>
-		</div>
-	</div>
+    		<div class="col-lg-12 text-center">
+                    <h3>Categories added by {{ user.username }}</h3>
+                    <hr class="star-primary">
+            </div>
+        </div>
+
+        <div class="col-offset-1 col-xs-10 text-center edit-panels panel panel-primary">
+				<div class="panel-heading text-center">
+						<h4><a href="#panelProf" data-toggle="collapse"><i class="fa fa-user"></i> User Categories</a></h4>
+				</div>
+				<div id="panelProf" class="collapse panel-collapse">
+						<div class="panel-body">
+							<hr>
+									<h2>Categories</h2>
+							<hr>
+							<section>
+								<ul>
+									{% for categ in user.categories %}
+										<li>
+											<a href="">{{ categ.category_name }}</a>
+											<span class="timestamp"> Added at {{ categ.date }}</span>
+										</li>
+									{% else %}
+										<li>{{ user.username }} has not added any task categories</li>
+									{% endfor %}
+								</ul>
+							</section>
+						</div>
+						<div class="panel-footer">
+							<p>Fill in all fields. For fields you wish not to change, just enter the existing info</p>
+						</div>
+				</div>
+			</div>
+
+		<!-- <div class="container">
+			<div class="row">
+				<section>
+					<ul>
+						{% for categ in user.categories %}
+							<li>
+								<a href="">{{ categ.category_name }}</a>
+								<span class="timestamp"> Added at {{ categ.date }}</span>
+							</li>
+						{% else %}
+							<li>{{ user.username }} has not added any task categories</li>
+						{% endfor %}
+					</ul>
+				</section>
+			</div>
+		</div> -->
+	</section>
 {% endblock %}

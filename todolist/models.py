@@ -2,6 +2,7 @@ from datetime import datetime
 from views import db
 from sqlalchemy import desc
 from flask_login import UserMixin
+from werkzeug.security import check_password_hash, generate_password_hash
 
 class Category(db.Model):
 	id = db.Column(db.Integer, primary_key=True)
@@ -22,9 +23,26 @@ class User(db.Model, UserMixin):
 	username = db.Column(db.String(80), unique=True)
 	email = db.Column(db.String(120), unique=True)
 	categories = db.relationship('Category', backref='user', lazy='dynamic')
+	password_hash = db.Column(db.String)
 
 	def __repr__(self):
 		return "User: '{}'".format(self.username)
+
+	@property
+	def password(self, password):
+		raise AttributeError('password: write-only field')
+
+	@password.setter
+	def password(self, password):
+	    self.password_hash = generate_password_hash(password)
+
+	def check_user_password(self, _password):
+		return check_password_hash(self.password_hash, _password)
+
+	@staticmethod
+	def get_by_username(username):
+		return User.query.filter_by(username=username).first()
+	
 
 class Card(db.Model):
 	id = db.Column(db.Integer, primary_key=True)
