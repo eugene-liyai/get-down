@@ -29,31 +29,30 @@
             </div>
         </div>
 
-        <div class="col-offset-1 col-xs-10 text-center edit-panels panel panel-primary">
-				<div class="panel-heading text-center">
-						<h4><a href="#panelProf" data-toggle="collapse"><i class="fa fa-user"></i> User Categories</a></h4>
-				</div>
-				<div id="panelProf" class="collapse panel-collapse">
-						<div class="panel-body">
-							<hr>
-									<h2>Categories</h2>
-							<hr>
-							<section>
-								<ul>
-									{% for categ in user.categories %}
-										<li>
-											<a href="">{{ categ.category_name }}</a>
-											<span class="timestamp"> Added at {{ categ.date }}</span>
-										</li>
-									{% else %}
-										<li>{{ user.username }} has not added any task categories</li>
-									{% endfor %}
-								</ul>
-							</section>
+        <div class="container">
+			<div class="row">
+		        <div class="col-xs-offset-2 col-xs-8 text-center edit-panels panel panel-default">
+						<div class="panel-heading text-center">
+								<h4><a href="#panelProf" data-toggle="collapse"><i class="fa fa-user"></i> View User Categories</a></h4>
+						</div>
+						<div id="panelProf" class="collapse panel-collapse">
+								<div class="panel-body">
+									<ul class="">
+										{% for categ in user.categories %}
+											<li>
+												<a href="">{{ categ.category_name }}</a>
+												<span class="timestamp"> Added at {{ categ.date }}</span>
+											</li>
+										{% else %}
+											<li>{{ user.username }} has not added any task categories</li>
+										{% endfor %}
+									</ul>
+								</div>
 						</div>
 						<div class="panel-footer">
-							<p>Fill in all fields. For fields you wish not to change, just enter the existing info</p>
+							<a href="{{ url_for('add_list') }}" class="btn btn-success btn-lg">Add new category</a>
 						</div>
+					</div>
 				</div>
 			</div>
 

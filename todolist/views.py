@@ -4,7 +4,7 @@ from flask import render_template, url_for, request, redirect, flash
 from flask_login import login_required, login_user, logout_user, current_user
 
 from todolist import app, db, login_manager
-from models import User, Category
+from models import User, Category, Card
 
 
 def new_category(num):
@@ -67,22 +67,38 @@ def signup():
 		return redirect(url_for('login'))
 	return render_template("signup.html")
 
-@app.route('/add_card')
-def add_card():
-	return render_template('add_card.html')
+@app.route('/add_card/<categid>', methods=["GET", "POST"])
+@login_required
+def add_card(categid):
+	if request.method == 'POST':
+		current_category = Category.get_by_catid(categid)
+		card_name = request.form['card']
+		description = request.form['description']
+		card = Card(category=current_category, card_name = card_name, description = description, )
+		db.session.add(card)
+		db.session.commit()
+		flash("Added '{}'".format(card_name))
+		return redirect(url_for('home'))
+	return render_template('add_card.html', categid=categid)
 
 @app.route('/card_view')
+@login_required
 def card_view():
 	return render_template('add_card.html')
 
 @app.route('/category_view')
+@login_required
 def category_view():
 	return render_template('add_card.html')
 
 @app.route('/user/<username>')
+@login_required
 def user(username):
-	user = User.query.filter_by(username=username).first_or_404()
-	return render_template('user.html', user=user)
+	if current_user.username == username:
+		user = User.query.filter_by(username=username).first_or_404()
+		return render_template('user.html', user=user)
+	else:
+		return render_template('403.html'), 403
 
 
 @app.errorhandler(404)

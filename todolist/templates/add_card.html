@@ -20,13 +20,20 @@
                 		<div class="row control-group">
                 			<div class="form-group col-xs-12 floating-label-form-group controls">
                 				<label>Card Name</label>
-                				<input type="text" class="form-control" placeholder="Category Name" name="card" />
+                				<input type="text" class="form-control" placeholder="Card Name" name="card" />
                 			</div>
                 		</div>
+                        <div class="row control-group">
+                            <div class="form-group col-xs-12 floating-label-form-group controls">
+                                <label>Card Description</label>
+                                <input type="text" class="form-control" placeholder="Card Description" name="description" />
+                            </div>
+                        </div>
+                        <input type="hidden" name="catid" value="{{ categid }}">
                 		<br>
                         <div class="row">
                             <div class="form-group col-xs-12">
-                                <button type="submit" class="btn btn-success btn-lg">Send</button>
+                                <button type="submit" class="btn btn-success btn-lg">Submit</button>
                             </div>
                         </div>
                 	</form>

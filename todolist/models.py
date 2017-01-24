@@ -15,6 +15,10 @@ class Category(db.Model):
 	def return_all():
 		return Category.query.order_by(desc(Category.date))
 
+	@staticmethod
+	def get_by_catid(categoryid):
+		return Category.query.filter_by(id=categoryid).first()
+
 	def __repr__(self):
 		return 'Category: %r' % self.category_name
 
