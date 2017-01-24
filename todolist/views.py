@@ -1,9 +1,18 @@
+import os
 from datetime import datetime
+from flask_sqlalchemy import SQLAlchemy
 from flask import Flask, render_template, url_for, request, redirect, flash
+
+import models
+
 
 
 app = Flask(__name__)
+basedir = os.path.abspath(os.path.dirname(__file__))
+
 app.config['SECRET_KEY'] = '\xa4\xfdnu\xa6\xf5%?,\x99\x0eWT\x02\xccJ\x8bu\xfa-t\xbd\xeey'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + os.path.join(basedir, 'getdown.db')
+db = SQLAlchemy(app)
 
 categorys = []
 
@@ -23,7 +32,7 @@ def index():
 
 @app.route('/home')
 def home():
-	return render_template('redirect_page.html', new_category=new_category(5))
+	return render_template('redirect_page.html', new_category=models.Category.return_all())
 
 @app.route('/login')
 def login():
@@ -35,6 +44,9 @@ def add_list():
 		category = request.form['category']
 		store_category(category)
 		flash("Added '{}'".format(category))
+		categ = models.Category(category_name = category)
+		db.session.add(categ)
+		db.session.commit()
 		return redirect(url_for('home'))
 	return render_template('add_category.html')
 
