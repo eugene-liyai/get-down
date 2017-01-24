@@ -13,3 +13,17 @@ The flask microframework allows python application to run on the web. Using rout
 	render_template('web_page.html')
 
 ```
+
+## Web Template
+the project uses one of the default bootstrap templates. This makes for a friendly User Interface, with the simplest implementation process. Bootstrap is usually bundled up in three core files.
+
+```html
+<html>
+<head>
+	<link href="../css/bootstrap.min.css" />
+	<script src="../js/jquery.min.js" />
+	<script src="../js/bootstrap.min.js" />
+</head>
+</html>
+
+```
