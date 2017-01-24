@@ -29,7 +29,7 @@
 				{% if new_category %}
 					<ul>
 						{% for bm in new_category %}
-							<li>{{ bm.user }} added <a href="{{ bm.category }}">{{ bm.category }}</a></li>
+							<li>{{ bm.user.username }} added <a href="{{ bm.category_name }}">{{ bm.category_name }}</a></li>
 						{% endfor %}
 					</ul>
 				{% else %}

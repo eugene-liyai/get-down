@@ -6,6 +6,8 @@ class Category(db.Model):
 	id = db.Column(db.Integer, primary_key=True)
 	category_name = db.Column(db.Text, nullable=False)
 	date = db.Column(db.DateTime, default=datetime.utcnow)
+	user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+	cards = db.relationship('Card', backref='card', lazy='dynamic')
 
 	@staticmethod
 	def return_all():
@@ -18,6 +20,7 @@ class User(db.Model):
 	id = db.Column(db.Integer, primary_key=True)
 	username = db.Column(db.String(80), unique=True)
 	email = db.Column(db.String(120), unique=True)
+	categories = db.relationship('Category', backref='user', lazy='dynamic')
 
 	def __repr__(self):
 		return "User: '{}'".format(self.username)
@@ -25,7 +28,14 @@ class User(db.Model):
 class Card(db.Model):
 	id = db.Column(db.Integer, primary_key=True)
 	card_name = db.Column(db.Text, nullable=False)
+	date = db.Column(db.DateTime, default=datetime.utcnow)
 	description = db.Column(db.String(300))
+	category_id = db.Column(db.Integer, db.ForeignKey('card.id'), nullable=False)
+	tasks = db.relationship('Task', backref='task', lazy='dynamic')
+
+	@staticmethod
+	def return_all():
+		return Card.query.order_by(desc(Card.date))
 
 	def __repr__(self):
 		return 'Card Name: %r' % self.card_name
@@ -33,6 +43,12 @@ class Card(db.Model):
 class Task(db.Model):
 	id = db.Column(db.Integer, primary_key=True)
 	task_name = db.Column(db.Text, nullable=False)
+	date = db.Column(db.DateTime, default=datetime.utcnow)
+	card_id = db.Column(db.Integer, db.ForeignKey('card.id'), nullable=False)
+
+	@staticmethod
+	def return_all():
+		return Task.query.order_by(desc(Task.date))
 
 	def __repr__(self):
 		return 'Task: %r' % self.task_name
