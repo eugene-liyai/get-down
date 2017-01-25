@@ -3,6 +3,7 @@ import os
 from flask import Flask
 from flask_login import LoginManager
 from flask_sqlalchemy import SQLAlchemy
+from flask.ext.moment import Moment
 
 app = Flask(__name__)
 basedir = os.path.abspath(os.path.dirname(__file__))
@@ -16,6 +17,9 @@ login_manager = LoginManager()
 login_manager.session_protection = "strong"
 login_manager.login_view = "login"
 login_manager.init_app(app)
+
+#display
+moment = Moment(app)
 
 import views
 import models

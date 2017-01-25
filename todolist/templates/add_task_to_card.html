@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block title %}
+	Create Card
+{% endblock %}
+
+{% block content %}
+	<section id="contact">
+		<div class="container app-forms">
+			<div class="row">
+				<div class="col-lg-12 text-center">
+	                    <h3>Add ToDo item to {{card.card_name}} card</h3>
+	                    <hr class="star-primary">
+	            </div>
+	        </div>
+
+	        <div class="row">
+                <div class="col-lg-8 col-lg-offset-2">
+                	<form action="" method="POST">
+                		<div class="row control-group">
+                			<div class="form-group col-xs-12 floating-label-form-group controls">
+                				<label>ToDo Item</label>
+                				<input type="text" class="form-control" placeholder="ToDo Item" name="task_name" />
+                			</div>
+                		</div>
+                        <input type="hidden" name="catid" value="{{ categid }}">
+                		<br>
+                        <div class="row">
+                            <div class="form-group col-xs-12">
+                                <button type="submit" class="btn btn-success btn-lg">Submit</button>
+                            </div>
+                        </div>
+                	</form>
+                </div>
+            </div>
+		</div>
+	</section>
+{% endblock %}

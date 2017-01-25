@@ -187,7 +187,7 @@ section h2 {
 }
 section.success {
   background: white;
-  color: #18BC9C;
+  color: #424444;
 }
 @media (max-width: 767px) {
   section {
@@ -542,4 +542,8 @@ ul.bookmarks li {
 
 article.flashes{
     margin-bottom: 1em;
+}
+
+span.editlinks {
+    float: right;
 }

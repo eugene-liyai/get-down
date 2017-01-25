@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 
 {% block title %}
-	{{ user.username }} Categories
+	{{ user.username }} List
 {% endblock %}
 
 {% block content %}
@@ -24,7 +24,7 @@
 
 		<div class="row">
     		<div class="col-lg-12 text-center">
-                    <h3>Categories added by {{ user.username }}</h3>
+                    <h3>List added by {{ user.username }}</h3>
                     <hr class="star-primary">
             </div>
         </div>
@@ -33,24 +33,81 @@
 			<div class="row">
 		        <div class="col-xs-offset-2 col-xs-8 text-center edit-panels panel panel-default">
 						<div class="panel-heading text-center">
-								<h4><a href="#panelProf" data-toggle="collapse"><i class="fa fa-user"></i> View User Categories</a></h4>
+								<h4><a href="#panelProf" data-toggle="collapse"><i class="fa fa-list-ol"></i> View User list</a></h4>
 						</div>
 						<div id="panelProf" class="collapse panel-collapse">
 								<div class="panel-body">
-									<ul class="">
-										{% for categ in user.categories %}
+									<ul class="bookmarks">
+										<!-- <div class="col-xs-offset-2 col-xs-8 text-center edit-panels panel panel-default">
+											<div class="panel-heading text-center"> -->
+													{% for categ in user.categories %}
+														<div class="col-xs-offset-2 col-xs-8 text-center edit-panels panel panel-default">
+															<div class="panel-heading text-center">
+																<div class="panel-heading text-center">
+																	<h4><a href="#{{categ.id}}" data-toggle="collapse"><i class="fa fa-file"></i> {{ categ.category_name }}</a></h4>
+																</div>
+																<div id="{{categ.id}}" class="collapse panel-collapse">
+																	<div class="panel-body">
+																		<ul class="bookmarks">
+																			<li>
+																				{% for card in categ.cards %}
+																					<h4><a class="header" href="{{ url_for('card_view', cardid=card.id) }}">{{ card.card_name }}</a></h4>
+																					<div class="info">
+																						<h6>{{ card.description }}</h6>
+																					</div>
+																					<div class="info">
+																						Added by {{ user.username }} {{ moment(card.date).fromNow() }}
+																					</div>
+																				{% else %}
+																					<h6>No cards created under {{ categ.category_name }}</h6>
+																				{% endfor %}
+																			</li>
+																		</ul>
+																	</div>
+																	<div class="panel-footer">
+																		<a href="{{ url_for('add_card', categid=categ.id) }}" class="btn btn-success btn-md">Add new card</a>
+																	</div>
+																</div>
+															</div>
+														</div>
+
+
+													{% else %}
+														<div class="col-xs-offset-2 col-xs-8 text-center edit-panels panel panel-default">
+															<div class="panel-heading text-center">
+														
+																<div class="panel-heading text-center">
+																	<h4><a href="#panelBel" data-toggle="collapse"><i class="fa fa-file"></i> No Categories</a></h4>
+																</div>
+
+																<div id="panelBel" class="collapse panel-collapse">
+																	<div class="panel-body">
+																		<ul class="bookmarks">
+																			<li><h6>{{ user.username }} has not added any list. Add list to continue</h6></li>
+																		<ul/>
+																	</div>
+																</div>
+															</div>
+														</div>
+														
+													{% endfor %}
+											<!-- </div>
+											<div id="panelBel" class="collapse panel-collapse">
+												<div class="panel-body">
+													Category details
+												</div>
+											</div>
+										</div> -->
+										<!-- {% for categ in user.categories %}
 											<li>
-												<a href="">{{ categ.category_name }}</a>
+												<a class="header" href="">{{ categ.category_name }}</a>
 												<span class="timestamp"> Added at {{ categ.date }}</span>
 											</li>
 										{% else %}
 											<li>{{ user.username }} has not added any task categories</li>
-										{% endfor %}
+										{% endfor %} -->
 									</ul>
 								</div>
-						</div>
-						<div class="panel-footer">
-							<a href="{{ url_for('add_list') }}" class="btn btn-success btn-lg">Add new category</a>
 						</div>
 					</div>
 				</div>

@@ -17,6 +17,20 @@
             </div>
         </div>
 
+        <div class="row">
+            <article class="flashes">
+                {% with messages = get_flashed_messages() %}
+                    {% if messages %}
+                        <ul>
+                            {% for message in messages %}
+                                <li>{{message}}</li>
+                            {% endfor %}
+                        </ul>
+                    {% endif %}
+                {% endwith %}
+            </article>
+        </div>
+
     	<div class="row">
             <div class="col-lg-8 col-lg-offset-2">
             	<form action="" method="POST">

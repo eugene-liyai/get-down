@@ -51,15 +51,28 @@
                         <a href="#page-top"></a>
                     </li>
                     {% if current_user.is_authenticated %}
+
                         <li class="page-scroll">
-                            <a href="{{ url_for('logout') }}">Logout</a>
+                            <a href="{{ url_for('add_list') }}"><i class="fa fa-list-ol"></i> Add list</a>
+                        </li>
+
+                        <li class="page-scroll">
+                            <a href="{{ url_for('user', username=current_user.username) }}"><i class="fa fa-file"></i> User Cards</a>
+                        </li>
+
+                        <li class="page-scroll">
+                            <a href="{{ url_for('move_card', username=current_user.username) }}"><i class="fa fa-arrow-circle-right"></i> Move Card</a>
+                        </li>
+
+                        <li class="page-scroll">
+                            <a href="{{ url_for('logout') }}"><i class="fa fa-sign-out"></i> Logout</a>
                         </li>
                     {% else %}
                         <li class="page-scroll">
-                            <a href="{{ url_for('signup') }}">Sign up</a>
+                            <a href="{{ url_for('signup') }}"><i class="fa fa-user-plus"></i> Sign up</a>
                         </li>
                         <li class="page-scroll">
-                            <a href="{{ url_for('login') }}">Login</a>
+                            <a href="{{ url_for('login') }}"><i class="fa fa-sign-in"></i> Login</a>
                         </li>
                     {% endif %}
                     
@@ -140,6 +153,8 @@
 
     <!-- Theme JavaScript -->
     <script src="../static/js/freelancer.min.js"></script>
+
+    {{ moment.include_moment() }}
 
 </body>
 

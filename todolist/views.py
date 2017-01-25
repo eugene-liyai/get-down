@@ -1,10 +1,10 @@
 from datetime import datetime
 from flask_sqlalchemy import SQLAlchemy
-from flask import render_template, url_for, request, redirect, flash
+from flask import render_template, url_for, request, redirect, flash, abort
 from flask_login import login_required, login_user, logout_user, current_user
 
 from todolist import app, db, login_manager
-from models import User, Category, Card
+from models import User, Category, Card, Task
 
 
 def new_category(num):
@@ -21,7 +21,7 @@ def load_user(userid):
 @app.route('/home')
 @login_required
 def home():
-	return render_template('redirect_page.html', new_category=Category.return_all())
+	return render_template('redirect_page.html', new_card=current_user)
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -63,28 +63,67 @@ def signup():
 		user = User(username=username, email=email, password=_password)
 		db.session.add(user)
 		db.session.commit()
-		flash('Welcome, {}! Please login.'.format(user.username))
-		return redirect(url_for('login'))
+		loged_user = User.get_by_username(username)
+		if loged_user is not None:
+			login_user(loged_user, True)
+			flash("Logged in successfully as {}".format(loged_user.username))
+			return redirect(url_for('user', username=loged_user.username))
 	return render_template("signup.html")
 
 @app.route('/add_card/<categid>', methods=["GET", "POST"])
 @login_required
 def add_card(categid):
 	if request.method == 'POST':
-		current_category = Category.get_by_catid(categid)
+		_category = Category.get_by_catid(categid)
 		card_name = request.form['card']
 		description = request.form['description']
-		card = Card(category=current_category, card_name = card_name, description = description, )
-		db.session.add(card)
+		card = Card(card_name = card_name, description = description)
+		_category.cards.append(card)
+		db.session.add(_category)
 		db.session.commit()
 		flash("Added '{}'".format(card_name))
 		return redirect(url_for('home'))
 	return render_template('add_card.html', categid=categid)
 
-@app.route('/card_view')
+@app.route('/card_view/<cardid>')
 @login_required
-def card_view():
-	return render_template('add_card.html')
+def card_view(cardid):
+	card = Card.get_by_cardid(cardid)
+	return render_template('add_task.html', card=card)
+
+@app.route('/move_card/<username>', methods=["GET", "POST"])
+@login_required
+def move_card(username):
+	user = User.query.filter_by(username=username).first_or_404()
+	if request.method == 'POST':
+		if current_user.username == username:
+			categid = request.form['category-to']
+			cardid = request.form['card-to']
+			_category = Category.get_by_catid(categid)
+			card = Card.get_by_cardid(cardid)
+			_category.cards.append(card)
+			db.session.add(_category)
+			db.session.commit()
+			flash("Moved card '{}'".format(card.card_name))
+			return redirect(url_for('home'))
+		else:
+			return render_template('403.html'), 403
+	return render_template('move_cards.html', user=user)
+
+
+@app.route('/add_task_to_card/<cardid>', methods=["GET", "POST"])
+@login_required
+def add_task_card(cardid):
+	card = Card.get_by_cardid(cardid)
+	if request.method == 'POST':
+		task_name = request.form['task_name']
+		task = Task(task_name = task_name)
+		card.tasks.append(task)
+		db.session.add(card)
+		db.session.commit()
+		flash("Added '{}' to '{}'' card".format(task_name, card.card_name))
+		return redirect(url_for('home'))
+	return render_template('add_task_to_card.html', card=card)
 
 @app.route('/category_view')
 @login_required
@@ -99,6 +138,22 @@ def user(username):
 		return render_template('user.html', user=user)
 	else:
 		return render_template('403.html'), 403
+
+@app.route('/edit/<int:task_id>/<int:card_id>', methods=["GET", "POST"])
+@login_required
+def edit_task(task_id, card_id):
+	task = Task.query.get_or_404(task_id)
+	card = Card.query.get_or_404(card_id)
+	if request.method == 'POST':
+		if task.done == False:
+			task.done = True
+		else:
+			task.done = False
+		db.session.add(task)
+		db.session.commit()
+		flash("updated {}".format(task.task_name))
+		return redirect(url_for('card_view', card=card))
+	return render_template('add_task.html', card=card)
 
 
 @app.errorhandler(404)

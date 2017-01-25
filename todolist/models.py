@@ -53,12 +53,16 @@ class Card(db.Model):
 	card_name = db.Column(db.Text, nullable=False)
 	date = db.Column(db.DateTime, default=datetime.utcnow)
 	description = db.Column(db.String(300))
-	category_id = db.Column(db.Integer, db.ForeignKey('category.id'), nullable=False)
+	category_id = db.Column(db.Integer, db.ForeignKey(Category.id), nullable=False)
 	tasks = db.relationship('Task', backref='task', lazy='dynamic')
 
 	@staticmethod
-	def return_all():
-		return Card.query.order_by(desc(Card.date))
+	def get_by_cardid(cardid):
+		return Card.query.filter_by(id=cardid).first()
+
+	@staticmethod
+	def return_all(n):
+		return Card.query.order_by(desc(Card.date)).limit(n)
 
 	def __repr__(self):
 		return 'Card Name: %r' % self.card_name
@@ -67,11 +71,17 @@ class Task(db.Model):
 	id = db.Column(db.Integer, primary_key=True)
 	task_name = db.Column(db.Text, nullable=False)
 	date = db.Column(db.DateTime, default=datetime.utcnow)
+	done = db.Column(db.Boolean, default=False, nullable=False)
 	card_id = db.Column(db.Integer, db.ForeignKey('card.id'), nullable=False)
 
 	@staticmethod
-	def return_all():
-		return Task.query.order_by(desc(Task.date))
+	def return_all(n):
+		return Task.query.filter_by(id=n).first()
+
+	@staticmethod
+	def get_by_taskid(taskid):
+		return Task.query.filter_by(id=taskid).first()
+
 
 	def __repr__(self):
 		return 'Task: %r' % self.task_name
