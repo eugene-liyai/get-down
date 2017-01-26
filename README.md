@@ -1,4 +1,4 @@
-# ![Alt text](https://github.com/eugene-liyai/get-down/tree/master/todolist/static/images/quill.png) get-down
+# get-down
 A web application built on python's `flask` microframework that allows users to create a to-do list and follow up on the progress of the tasks
 ## Application requirements
 
