@@ -20,20 +20,23 @@
                 		<div class="row control-group">
                 			<div class="form-group col-xs-12 floating-label-form-group controls">
                 				<label>Card Name</label>
-                				<input type="text" class="form-control" placeholder="Card Name" name="card" />
+                				<input type="text" class="form-control" placeholder="Card Name" name="card" id="cd_name"/>
+                                <span class="errors" id="cdnmError"></span>
                 			</div>
                 		</div>
                         <div class="row control-group">
                             <div class="form-group col-xs-12 floating-label-form-group controls">
                                 <label>Card Description</label>
-                                <input type="text" class="form-control" placeholder="Card Description" name="description" />
+                                <input type="text" class="form-control" placeholder="Card Description" name="description" id="cd_desc"/>
+                                <span class="errors" id="cddesError"></span>
                             </div>
                         </div>
                         <input type="hidden" name="catid" value="{{ categid }}">
                 		<br>
                         <div class="row">
                             <div class="form-group col-xs-12">
-                                <button type="submit" class="btn btn-success btn-lg">Submit</button>
+                                <button type="submit" class="btn btn-success btn-lg" id="add_card_submit">Submit</button>
+                                <span class="errors" id="cdsubError"></span>
                             </div>
                         </div>
                 	</form>

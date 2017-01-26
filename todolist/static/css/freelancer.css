@@ -547,3 +547,11 @@ article.flashes{
 span.editlinks {
     float: right;
 }
+
+.nav-logo{
+  display: inline;
+}
+
+.errors{
+    color : #EBC82B;
+}

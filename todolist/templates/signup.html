@@ -37,31 +37,36 @@
     				<div class="row control-group">
             			<div class="form-group col-xs-12 floating-label-form-group controls">
             				<label>Username</label>
-            				<input type="text" class="form-control" placeholder="Username" name="username"/>
+            				<input type="text" class="form-control" placeholder="Username" name="username" id="s_uname"/>
+                            <span class="errors" id="unameError"></span>
             			</div>
             		</div>
             		<div class="row control-group">
             			<div class="form-group col-xs-12 floating-label-form-group controls">
             				<label>Email</label>
-            				<input type="text" class="form-control" placeholder="User email" name="email"/>
+            				<input type="text" class="form-control" placeholder="User email" name="email" id="s_email"/>
+                            <span class="errors" id="emailError"></span>
             			</div>
             		</div>
             		<div class="row control-group">
             			<div class="form-group col-xs-12 floating-label-form-group controls">
             				<label>Password</label>
-            				<input type="password" class="form-control" placeholder="Password" name="password"/>
+            				<input type="password" class="form-control" placeholder="Password" name="password" id="s_password" />
+                            <span class="errors" id="passError"></span>
             			</div>
             		</div>
             		<div class="row control-group">
             			<div class="form-group col-xs-12 floating-label-form-group controls">
             				<label>Re-enter Password</label>
-            				<input type="password" class="form-control" placeholder="Re-enter Password" name="repassword"/>
+            				<input type="password" class="form-control" placeholder="Re-enter Password" name="repassword" id="s_rpassword" />
+                            <span class="errors" id="rpassError"></span>
             			</div>
             		</div>
             		<br>
                     <div class="row">
                         <div class="form-group col-xs-12">
-                            <button type="submit" class="btn btn-success btn-lg">Sign Up</button>
+                            <button type="submit" class="btn btn-success btn-lg" id="submitBtn">Sign Up</button>
+                            <span class="errors" id="subError"></span>
                         </div>
                     </div>
     			</form>

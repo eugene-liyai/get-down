@@ -20,14 +20,16 @@
                 		<div class="row control-group">
                 			<div class="form-group col-xs-12 floating-label-form-group controls">
                 				<label>ToDo Item</label>
-                				<input type="text" class="form-control" placeholder="ToDo Item" name="task_name" />
+                				<input type="text" class="form-control" placeholder="ToDo Item" name="task_name" id="tk_name"/>
+                                <span class="errors" id="taskNmError"></span>
                 			</div>
                 		</div>
                         <input type="hidden" name="catid" value="{{ categid }}">
                 		<br>
                         <div class="row">
                             <div class="form-group col-xs-12">
-                                <button type="submit" class="btn btn-success btn-lg">Submit</button>
+                                <button type="submit" class="btn btn-success btn-lg" id="sub_task">Submit</button>
+                                <span class="errors" id="subTaskError"></span>
                             </div>
                         </div>
                 	</form>

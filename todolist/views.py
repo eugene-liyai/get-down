@@ -139,20 +139,18 @@ def user(username):
 	else:
 		return render_template('403.html'), 403
 
-@app.route('/edit/<int:task_id>/<int:card_id>', methods=["GET", "POST"])
+@app.route('/edit/<int:task_id>/<int:card_id>')
 @login_required
 def edit_task(task_id, card_id):
 	task = Task.query.get_or_404(task_id)
 	card = Card.query.get_or_404(card_id)
-	if request.method == 'POST':
-		if task.done == False:
-			task.done = True
-		else:
-			task.done = False
-		db.session.add(task)
-		db.session.commit()
-		flash("updated {}".format(task.task_name))
-		return redirect(url_for('card_view', card=card))
+	if task.done == False:
+		task.done = True
+	else:
+		task.done = False
+	db.session.add(task)
+	db.session.commit()
+	flash("updated {}".format(task.task_name))
 	return render_template('add_task.html', card=card)
 
 

@@ -38,19 +38,22 @@
     				<div class="row control-group">
             			<div class="form-group col-xs-12 floating-label-form-group controls">
             				<label>Username</label>
-            				<input type="text" class="form-control" placeholder="Username" name="username"/>
+            				<input type="text" class="form-control" placeholder="Username" name="username" id="l_uname"/>
+                            <span class="errors" id="lunameError"></span>
             			</div>
             		</div>
             		<div class="row control-group">
             			<div class="form-group col-xs-12 floating-label-form-group controls">
             				<label>Password</label>
-            				<input type="password" class="form-control" placeholder="Password" name="password"/>
+            				<input type="password" class="form-control" placeholder="Password" name="password" id="l_password"/>
+                            <span class="errors" id="lpassError"></span>
             			</div>
             		</div>
             		<br>
                     <div class="row">
                         <div class="form-group col-xs-12">
-                            <button type="submit" class="btn btn-success btn-lg">Login</button>
+                            <button type="submit" class="btn btn-success btn-lg" id="lg_submit">Login</button>
+                            <span class="errors" id="sublError"></span>
                         </div>
                     </div>
     			</form>
