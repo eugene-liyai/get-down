@@ -19,9 +19,9 @@
                 	<form action="" method="POST">
                 		<div class="row control-group">
                 			<div class="form-group col-xs-12 floating-label-form-group controls">
-                				<label>Select Category</label>
+                				<label>Select list</label>
                                 <select class="form-control" name="category-to">
-                                    <option selected="true">Select Category</option>
+                                    <option selected="true">Select list</option>
                                         {% for category in user.categories %}
                                             <option value="{{ category.id }}">{{ category.category_name }}</option>
                                         {% endfor %}
