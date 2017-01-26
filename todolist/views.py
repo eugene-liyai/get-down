@@ -39,7 +39,6 @@ def login():
 @app.route('/add_list', methods=['GET', 'POST'])
 @login_required
 def add_list():
-	print "hey joy"
 	if request.method == 'POST':
 		category = request.form['category']
 		categ = Category(user = current_user, category_name = category)

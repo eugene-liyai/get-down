@@ -1,6 +1,5 @@
 from unittest import TestCase
-from views import db
-from models import Category, User
+from models import Category
 
 class ModelTestClass(TestCase):
 
@@ -8,7 +7,8 @@ class ModelTestClass(TestCase):
 		self.assertIsInstance(Category, type(Category.get_by_catid(1)))
 
 	def test_user(self):
-		self.assertEqual(User.username, User.get_by_username('liyai'))
+		user = User.get_by_username('liyai')
+		self.assertEqual('liyai', user.username)
 
 	def test_user(self):
 		self.assertTrue(True, Task.get_by_taskid(1))
